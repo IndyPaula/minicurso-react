@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemplo 5 - Componente com estado</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style type="text/css">
+      img {
+        max-width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class DoryApp extends React.Component {
+        render() {
+          return (
+            <div>
+              <h1>Procurando Dory</h1>
+
+              <p>Dory é muito esquecida.</p>
+
+              <img src="../images/dory.jpeg"/>
+
+              <p>Vamos contar algo pra ela</p>
+
+              <input type="text" placeholder="Conte algo para a Dory"/>
+
+              <p id="memoria"></p>
+            </div>
+          )
+        }
+      }
+
+
+      ReactDOM.render(
+        <DoryApp />,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

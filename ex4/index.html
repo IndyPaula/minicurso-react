@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemplo 4 - Reuso de Componentes</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="layout.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class PostTitle extends React.Component {
+        render() {
+          return <h3 className="post-title">Wonder why I wasted all of that time playing that shitty game.</h3>
+        }
+      }
+
+      class PostImage extends React.Component {
+        render() {
+          return <img src="../images/img1.jpg" className='post-image' />
+        }
+      }
+
+      /* Esses dois componentes abaixo devem ser reutilizados como DetailedText */
+
+      class PointsCounter extends React.Component {
+        render() {
+          return <span>4,071 points</span>
+        }
+      }
+
+      class CommentsCounter extends React.Component {
+        render() {
+          return <span>496 comments</span>
+        }
+      }
+
+      /* ====================================================================== */
+
+      class PostDetails extends React.Component {
+        render() {
+          return (
+            <div className="post-details">
+              <PointsCounter /> &middot; <CommentsCounter />
+            </div>
+          )
+        }
+      }
+
+      class ActionButton extends React.Component {
+        getDataByActionType(actionType) {
+          switch (actionType) {
+            case 'up':
+              return { cssClass: 'up', linkText: 'Upvote' }
+
+            case 'down':
+              return { cssClass: 'down', linkText: 'Downvote' }
+
+            case 'comment':
+              return { cssClass: 'comment', linkText: 'Comment' }
+
+            case 'more':
+              return { cssClass: 'more', linkText: 'More Options' }
+          }
+        }
+
+        render() {
+          // "{ a, b } = c "Operador de desconstrução do ES6.
+          // É equivalente a:
+          //  a = c.a
+          //  b = c.b
+          const { cssClass, linkText } = this.getDataByActionType(this.props.actionType)
+
+          // O código a seguir, sendo atribuido a className é uma Template String
+          // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/template_strings
+          return <a className={`p-btn ${cssClass}`} href="#">{linkText}</a>
+        }
+      }
+
+      /* Esses dois componentes abaixo devem ser reutilizados como ShareButton */
+
+      class FacebookButton extends React.Component {
+        render() {
+          return <a className='btn-share facebook' href="#">Facebook</a>
+        }
+      }
+
+      class PinterestButton extends React.Component {
+        render() {
+          return <a className='btn-share pinterest' href="#">Pinterest</a>
+        }
+      }
+
+      /* ====================================================================== */
+
+      class ButtonsRow extends React.Component {
+        render() {
+          // As 4 formas de passagem de propriedades a seguir são válidas
+          const commentActionType = 'comment'
+          return (
+            <div className="post-buttons">
+              <div className="p-buttons">
+                <ActionButton actionType='up' />
+                <ActionButton actionType={'down'} />
+                <ActionButton actionType={commentActionType} />
+                <ActionButton actionType="more" />
+              </div>
+                <div className="share-buttons">
+                  <FacebookButton />
+                  <PinterestButton />
+                </div>
+            </div>
+          )
+        }
+      }
+
+      class Post extends React.Component {
+        render() {
+          return (
+            <div className="post-box">
+              <PostTitle />
+              <PostImage />
+              <PostDetails />
+              <ButtonsRow />
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(
+        <Post />,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

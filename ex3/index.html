@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemplo 3 - Imitando o 9GAG</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style type="text/css">
+      body {
+        font-family: "Helvetica Neue";
+        font-size: 14px;
+      }
+
+      .post-box {
+        max-width: 500px;
+      }
+
+      .post-title {
+        font-size: 20px;
+      }
+
+      .post-box .post-image {
+        width: 100%;
+      }
+
+      .post-details,
+      .post-buttons {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .post-details {
+        color: gray;
+      }
+
+      .post-buttons .p-btn,
+      .post-buttons .btn-share {
+        display: inline-block;
+      }
+
+      .p-btn {
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        width: 44px;
+        height: 34px;
+        display: block;
+        text-indent: -999px;
+        position: relative;
+      }
+
+      .p-btn:not(:first-child) {
+        margin-left: 15px;
+      }
+
+      .p-btn:after {
+        position: absolute;
+        content: " ";
+        width: 30px;
+        height: 30px;
+        left: 50%;
+        top: 50%;
+        margin-top: -15px;
+        margin-left: -15px;
+        padding: 0;
+        outline: 0;
+      }
+
+      .up:after {
+        background: url(../images/9gag-sprites.png) -120px 0 no-repeat;
+        background-size: 420px 120px;
+      }
+
+      .down:after {
+          background: url(../images/9gag-sprites.png) -150px 0 no-repeat;
+          background-size: 420px 120px;
+      }
+
+      .comment:after {
+        background: url(../images/9gag-sprites.png) -180px 0 no-repeat;
+        background-size: 420px 120px;
+      }
+
+      .more:after {
+        background: url(../images/9gag-sprites.png) -300px 0 no-repeat;
+        background-size: 420px 120px;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .p-buttons {
+        display: inline-block;
+      }
+
+      .share-buttons {
+        float:right;
+      }
+
+      .btn-share {
+        color: #fff;
+        font-weight: 700;
+        height: 34px;
+        background-color: #f4f4f4;
+        line-height: 34px;
+        padding: 0 15px 0 34px;
+        border-radius: 2px;
+        text-align: center;
+        position: relative;
+        margin-left: 10px;
+      }
+      
+      .btn-share.facebook {
+        background-color: #3b5998;
+      }
+
+      .btn-share.pinterest {
+        background-color: #bd081c;
+      }
+
+      .btn-share:after {
+        content: " ";
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        top: 50%;
+        left: 2px;
+      }
+
+      .facebook:after {
+        margin-top: -16px;
+        background: url(images/9gag-sprites.png) -90px -30px no-repeat;
+        background-size: 420px 120px;
+      }
+
+      .pinterest:after {
+        margin-top: -15px;
+        background: url(images/9gag-sprites.png) -390px -30px no-repeat;
+        background-size: 420px 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+      class PostTitle extends React.Component {
+        render() {
+          return <h3 className="post-title">Wonder why I wasted all of that time playing that shitty game.</h3>
+        }
+      }
+
+      class PostImage extends React.Component {
+        render() {
+          return <img src="../images/img1.jpg" className='post-image' />
+        }
+      }
+
+      class PointsCounter extends React.Component {
+        render() {
+          return <span>4,071 points</span>
+        }
+      }
+
+      /* CommentsCounter */
+
+      class PostDetails extends React.Component {
+        render() {
+          return (
+            <div className="post-details">
+              <PointsCounter /> &middot;
+            </div>
+          )
+        }
+      }
+
+      class VoteUpButton extends React.Component {
+        render() {
+          return <a className='p-btn up' href="#">Upvote</a>
+        }
+      }
+
+      /* VoteDownButton */
+
+      /* CommentButton */
+
+      /* MoreButton */
+
+      /* FacebookButton */
+
+      /* PinterestButton */
+
+      class ButtonsRow extends React.Component {
+        render() {
+          return (
+            <div className="post-buttons">
+              <div className="p-buttons">
+                <VoteUpButton />
+              </div>
+              <div className="share-buttons">
+              </div>
+            </div>
+          )
+        }
+      }
+
+      class Post extends React.Component {
+        render() {
+          return (
+            <div className="post-box">
+              <PostTitle />
+              <PostImage />
+              <PostDetails />
+              <ButtonsRow />
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(
+        <Post />,
+        document.getElementById('root')
+      );
+
+    </script>
+  </body>
+</html>
